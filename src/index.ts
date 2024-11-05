@@ -5,10 +5,14 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-rl.question(`名前を入力してください:`, (name: string) => {
+rl.question(`数値を入力してください:`, (line) => {
   //文字列が入力されるとここが実行される
-  const displayName = name || "ゲスト";
-  console.log(`こんにちは${displayName}さん`);
+  const num = Number(line);
+  const message =
+    0 <= num && num < 100
+      ? `${num}は0以上100未満です`
+      : `${num}は0以上100未満ではありません`;
+  console.log(message);
 
   rl.close();
 });
