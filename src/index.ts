@@ -1,11 +1,9 @@
 let i = 0;
-let sum = 0;
-while (true) {
-  if (i > 100) {
-    //ループの終了条件を記載する
-    break;
-  }
-  sum += i;
+while (i <= 100) {
   i++;
+  if (i % 2 === 1) {
+    //iが奇数の場合、次のwhileループに移動する(logに出さない)
+    continue;
+  }
+  console.log(i);
 }
-console.log(sum);
