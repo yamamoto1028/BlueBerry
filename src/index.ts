@@ -5,14 +5,19 @@ const rl = createInterface({
   output: process.stdout,
 });
 
-rl.question(`数値を入力してください:`, (line) => {
+rl.question(`名前を入力してください:`, (name) => {
   //文字列が入力されるとここが実行される
-  const num = Number(line);
-  const message =
-    0 <= num && num < 100
-      ? `${num}は0以上100未満です`
-      : `${num}は0以上100未満ではありません`;
-  console.log(message);
+  switch (name) {
+    case "greet":
+      console.log("こんにちは");
+      break;
+    case "cat":
+      console.log("あなたは猫派？");
+      console.log("私は犬派です");
+      break;
+    default:
+      console.log(`${name}を認識できませんでした`);
+  }
 
   rl.close();
 });
