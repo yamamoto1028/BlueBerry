@@ -1,9 +1,16 @@
-type MyObj = {
-  readonly foo: number;
+type FooBar = {
+  foo: string;
+  bar: number;
 };
-const obj: MyObj = {
-  foo: 123,
+type FooBarBaz = {
+  foo: string;
+  bar: number;
+  baz: boolean;
 };
-
-obj.foo = 333;
-console.log(obj.foo);
+const obj = {
+  foo: "hi",
+  bar: 1,
+  baz: true,
+};
+const obj2: FooBar = obj; //2つの同じプロパティ(かつ同じ型)を持っているオブジェクト型は使いまわせる
+console.log(obj2);
