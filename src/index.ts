@@ -1,21 +1,14 @@
-type MsgType = {
-  [key: string]: string; //インデックスシグネチャ「どんな名前のプロパティも受け入れる」
-}; //Mapオブジェクトで代替することを推奨。
-const messages: MsgType = {
-  msg1: "2の倍数です",
-  msg2: "5の倍数です",
-  msg3: "10の倍数です",
+type MyObj = {
+  foo: boolean;
+  bar: boolean;
+  baz?: number;
 };
-messages.msg4 = "3の倍数です";
 
-for (let i = 0; i <= 100; i++) {
-  if (i % 2 === 0 && i % 5 === 0) {
-    console.log(messages.msg3);
-  } else if (i % 2 === 0) {
-    console.log(messages.msg1);
-  } else if (i % 5 === 0) {
-    console.log(messages.msg2);
-  } else {
-    console.log(i);
-  }
+const obj: MyObj = { foo: true, bar: true };
+const obj2: MyObj = { foo: false, bar: true, baz: 1234 };
+
+console.log(obj2.baz * 1000); //これはコンパイルエラーundefinedの可能性がある値は計算できない
+if (obj2.baz !== undefined) {
+  //if文にてundefinedの可能性を除外すれば計算可能になる
+  console.log(obj2.baz * 1000);
 }
