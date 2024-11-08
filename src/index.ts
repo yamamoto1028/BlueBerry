@@ -1,17 +1,20 @@
-let result = "";
+import { createInterface } from "readline";
+const rl = createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-for (let i = 1; i <= 100; i++) {
-  if (i > 1) {
-    result += " "; //文字間に空白を追加する
-  }
-  if (i % 3 === 0 && i % 5 === 0) {
-    result += "FizzBuzz";
-  } else if (i % 3 === 0) {
-    result += "Fizz";
-  } else if (i % 5 === 0) {
-    result += "Buzz";
+const messages = {
+  good: "0以上の数値が入力されました",
+  bad: "負の数値を入力しないでください！",
+};
+
+rl.question("数値を入力してください", (line) => {
+  const num = Number(line);
+  if (typeof num === "number" && !isNaN(num)) {
+    console.log(messages[num >= 0 ? "good" : "bad"]);
   } else {
-    result += String(i);
+    console.log("半角数字で入力してください");
   }
-}
-console.log(result);
+  rl.close();
+});
