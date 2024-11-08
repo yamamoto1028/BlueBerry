@@ -1,16 +1,35 @@
-type FooBar = {
-  foo: string;
-  bar: number;
+type Animal = {
+  age: number;
 };
-type FooBarBaz = {
-  foo: string;
-  bar: number;
-  baz: boolean;
+type Human = {
+  age: number;
+  name: string;
 };
-const obj = {
-  foo: "hi",
-  bar: 1,
-  baz: true,
+
+type AnimalFamily = {
+  familyName: string;
+  mother: Animal;
+  father: Animal;
+  child: Animal;
+  age: number;
 };
-const obj2: FooBar = obj; //2つの同じプロパティ(かつ同じ型)を持っているオブジェクト型は使いまわせる
-console.log(obj2);
+type HumanFamily = {
+  middleName: string;
+  mother: Human;
+  father: Human;
+  child: Human;
+  age: number;
+  firstName: string;
+};
+
+const foo: HumanFamily = {
+  middleName: "foo",
+  mother: { age: 27, name: "Hanako" },
+  father: { age: 30, name: "Taro" },
+  child: { age: 4, name: "Kodomo" },
+  age: 27,
+  firstName: "Yamada",
+};
+console.log(
+  `この家の父は${foo.firstName}・${foo.middleName}・${foo.father.name}です。\n${foo.father.age}歳です。`
+);
