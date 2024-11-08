@@ -7,4 +7,6 @@ const obj2 = {
   ...obj1,
   foo: -999999, //スプレッド構文でコピーしたプロパティを書き換えることができる
 };
+console.log(obj1); //元のobj1のプロパティに影響はない
+
 console.log(obj2);
