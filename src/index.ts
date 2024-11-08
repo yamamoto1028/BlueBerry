@@ -1,6 +1,6 @@
 type MsgType = {
   [key: string]: string; //インデックスシグネチャ「どんな名前のプロパティも受け入れる」
-};
+}; //Mapオブジェクトで代替することを推奨。
 const messages: MsgType = {
   msg1: "2の倍数です",
   msg2: "5の倍数です",
