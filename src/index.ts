@@ -1,12 +1,10 @@
-const obj1 = {
-  foo: 123,
-  bar: 456,
-  baz: 789,
-};
-const obj2 = {
-  ...obj1,
-  foo: -999999, //スプレッド構文でコピーしたプロパティを書き換えることができる
-};
-console.log(obj1); //元のobj1のプロパティに影響はない
+interface FooBarObj {
+  foo: number;
+  bar: string;
+}
 
-console.log(obj2);
+const obj: FooBarObj = {
+  foo: 0,
+  bar: "string",
+};
+console.log(obj); //今はあまり使われない。type文でOK。
