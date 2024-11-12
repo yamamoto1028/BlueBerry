@@ -8,4 +8,15 @@ const obj: Family<number, string> = {
   mother: 38,
   child: "2",
 };
-console.log(obj);
+const mono: Family<string, boolean> = {
+  father: "12",
+  mother: "34",
+  child: true,
+};
+const error: Family = {
+  //型引数をつけなければコンパイルエラーになる
+  father: "12",
+  mother: "34",
+  child: true,
+};
+console.log(obj, mono, error);
