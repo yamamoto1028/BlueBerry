@@ -1,22 +1,20 @@
-type Family<Parent, child> = {
+type Hasname = {
+  name: string;
+};
+
+type Family<Parent extends Hasname, Child extends Parent> = {
+  //ParentはHasnameの型定義を全て持ってないといけない、ChildはParentの型定義を全て持ってないといけない
   father: Parent;
   mother: Parent;
-  child: child;
+  child: Child;
 };
-const obj: Family<number, string> = {
-  father: 40,
-  mother: 38,
-  child: "2",
+type Animal = {
+  name: string;
 };
-const mono: Family<string, boolean> = {
-  father: "12",
-  mother: "34",
-  child: true,
+type Human = {
+  name: string;
+  age: number;
 };
-const error: Family = {
-  //型引数をつけなければコンパイルエラーになる
-  father: "12",
-  mother: "34",
-  child: true,
-};
-console.log(obj, mono, error);
+
+type S = Family<Animal, Human>; //HumanはAnimalの型定義を全て持ってないといけない
+type T = Family<Human, Animal>; //AnimalはHumanの型定義を全て持ってないといけない→持ってないのでコンパイルエラー
