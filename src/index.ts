@@ -1,41 +1,8 @@
-type Human = {
-  name: string;
-  age: number;
-  flg: boolean;
-};
-type Animal = {
-  name: string;
-  age: number;
-  flg: boolean;
-  kind: string;
-};
+const arr = [0, 123, -456 * 100];
 
-type Family<Parent = Human, Child = Human> = {
-  father: Parent;
-  mother: Parent;
-  child: Child;
-};
+console.log(arr);
 
-type S = Family<Human, Animal>; //通常の使い方
-type T = Family; //TはFamily<Human, Human>と同じ
-type U = Family<string>; //Uはfamily<string, Human>と同じ
+arr[1] = 5400; //配列の中身を変えることはできる。
+console.log(arr);
 
-const familyS: S = {
-  father: { name: "ちち", age: 40, flg: true },
-  mother: { name: "はは", age: 38, flg: true },
-  child: { name: "いぬ", age: 5, flg: false, kind: "Dog" },
-};
-
-const familyT: T = {
-  father: { name: "ちち", age: 40, flg: true },
-  mother: { name: "はは", age: 38, flg: true },
-  child: { name: "いぬ", age: 5, flg: false },
-};
-
-const familyU: U = {
-  father: "ちち",
-  mother: "はは",
-  child: { name: "いぬ", age: 5, flg: false },
-};
-
-console.log(familyS, familyT, familyU);
+arr = [2, 1, 3, 4, 45, 43, 22, 23, 22]; //配列を再代入することはできない。
