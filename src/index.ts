@@ -1,8 +1,10 @@
-const arr = [0, 123, -456 * 100];
+const arr1: boolean[] = [false, true];
 
-console.log(arr);
-
-arr[1] = 5400; //配列の中身を変えることはできる。
-console.log(arr);
-
-arr = [2, 1, 3, 4, 45, 43, 22, 23, 22]; //配列を再代入することはできない。
+const arr2: Array<{
+  name: string;
+  age: number;
+}> = [
+  { name: "山田さん", age: 15 },
+  { name: "田中さん", age: 16 },
+  { name: "鈴木さん", age: 17 },
+];
