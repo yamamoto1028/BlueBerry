@@ -1,15 +1,28 @@
-const obj = {
-  foo: 1,
-  bar: "2",
+const nested = {
+  num: 123,
+  obj: {
+    foo: "hello",
+    bar: "world",
+    mono: {
+      empitsu: "Good",
+      keshigomiu: "night", //いくつでもネストできる
+    },
+  },
 };
-const { foo, bar } = obj; //objのプロパティ名と同じ変数名で定義して代入
-console.log(obj.foo);
-console.log(obj.bar);
+const {
+  num,
+  obj: { bar: aa },
+  obj: { foo },
+  obj: {
+    mono: { empitsu: monosashi },
+  },
+  obj: {
+    mono: { keshigomiu: hasami },
+  },
+} = nested;
+console.log(num);
+console.log(foo);
+console.log(aa);
 
-const obj1 = {
-  foo1: 1,
-  bar1: "2",
-  foobar: "3",
-};
-const { foo1, bar1: barVar, foobar: foobbar } = obj1; //obj1のbar1を変数名barVarに代入し宣言。foobarを変数名foobbarに代入し宣言
-console.log(obj1.foo1, barVar, foobbar);
+console.log(monosashi);
+console.log(hasami);
