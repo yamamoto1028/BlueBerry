@@ -1,10 +1,8 @@
 type obj = { foo?: number };
-const obj1: obj = {};
-const obj2: obj = { foo: -1234 };
+const obj1 = { foo: null };
+const { foo = 123 } = obj1;
+console.log(foo); //nullはそのままnullが代入される。
 
-const { foo = 500 } = obj1; //obj1のfooを変数fooに代入。undefinedの場合は500を代入。
-console.log(foo); //500が出力
-console.log(obj1.foo); //undefined
-
-const { foo: bar = 500 } = obj2;
-console.log(bar); //-1234が出力
+type objA = { foo1?: number };
+const obj2: objA = {};
+const { foo1 = 500 } = obj2; //デフォルト値の指定があることでfoo1はnumber型のみになる（undefined型が入る可能性が排除される）
