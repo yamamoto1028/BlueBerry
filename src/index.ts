@@ -1,8 +1,17 @@
-type obj = { foo?: number };
-const obj1 = { foo: null };
-const { foo = 123 } = obj1;
-console.log(foo); //nullはそのままnullが代入される。
+type NestedObj = {
+  obj?: {
+    foo: number;
+  };
+};
 
-type objA = { foo1?: number };
-const obj2: objA = {};
-const { foo1 = 500 } = obj2; //デフォルト値の指定があることでfoo1はnumber型のみになる（undefined型が入る可能性が排除される）
+const nested1: NestedObj = {
+  obj: { foo: 123 },
+};
+
+const nested2: NestedObj = {};
+
+const { obj: { foo: foo1 } = { foo: 500 } } = nested1; //デフォルト値を指定しないと「undefined」が入る余地がある為エラーとなる。
+console.log(foo1);
+
+const { obj: { foo: foo2 } = { foo: 500 } } = nested2;
+console.log(foo2);
