@@ -1,17 +1,13 @@
-type NestedObj = {
-  obj?: {
-    foo: number;
-  };
+const obj = {
+  foo: 123,
+  bar: true,
+  bazz: "string",
 };
+const { foo, ...restObj } = obj; //残りのプロパティを全て持つ新たなオブジェクトを代入。
+console.log(foo);
+console.log(restObj);
 
-const nested1: NestedObj = {
-  obj: { foo: 123 },
-};
-
-const nested2: NestedObj = {};
-
-const { obj: { foo: foo1 } = { foo: 500 } } = nested1; //デフォルト値を指定しないと「undefined」が入る余地がある為エラーとなる。
-console.log(foo1);
-
-const { obj: { foo: foo2 } = { foo: 500 } } = nested2;
-console.log(foo2);
+const arr = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const [a, b, c, ...restArray] = arr; //その位置以降のすべての要素を新たな配列にコピーする。
+console.log(a, b, c);
+console.log(restArray);
