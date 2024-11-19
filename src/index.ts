@@ -1,10 +1,18 @@
-const r = /ab+c/; //正規表現オブジェクト
+console.log("Hello, abbbbbbc world! abbc".replace(/ab+c/, "foobar"));
+console.log("Hello, abbbbbbc world! abbc".replace(/ab+c/g, "foobar"));
 
-console.log(r.test("abbbbc")); //testメソッド→文字列型を受け取り、文字列のどこか一部分が正規表現にマッチしているか真偽値を返す
-console.log(r.test("Hello, abc world!"));
-console.log(r.test("ABC"));
-console.log(r.test("こんにちは"));
+const result = "Hello, abbbbbbc world! abc".match(/a(b+)c/); //match関数は配列を返す。キャプチャリンググループ「()内」
+if (result !== null) {
+  console.log(result[0]); //一致する文字列全体
+  console.log(result[1]); //()内のキャプチャリンググループしたものが順に入っていく。
+}
 
-const s = /^abc/; //文字列の先頭にあるabcにのみマッチする
-console.log(s.test("abcdefg"));
-console.log(s.test("aabcdefg"));
+const result1 = "Hello, abbbbbbc world! abc".match(/a(?<worldName>b+)c/); //名前付きキャプチャリンググループ
+if (result1 !== null) {
+  console.log(result1.groups);
+}
+
+const result2 = "Hello, abbbbbbc world! abc".match(/a(?<worldName>b+)c/g); //名前付きキャプチャリンググループは無視される代わりに正規表現にマッチする部分文字列がすべて列挙された配列を返す
+if (result2 !== null) {
+  console.log(result2);
+}
