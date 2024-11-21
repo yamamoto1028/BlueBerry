@@ -1,12 +1,11 @@
+//アロー関数式の構文
+//(引数リスト):返り値の型=>{中身}
+
 type Human = {
   height: number;
   weight: number;
 };
-
-console.log(calcBMI(Taro)); //変数宣言よりも前に関数の呼び出しはできない…巻き上げ機能は使えない
-
-const calcBMI = function ({ height, weight }: Human): number {
-  //humanのところを分割代入でプロパティを直接書ける
+const calcBMI = ({ height, weight }: Human): number => {
   return weight / height ** 2;
 };
 
