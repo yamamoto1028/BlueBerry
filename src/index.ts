@@ -1,35 +1,11 @@
-type User = {
-  name: string;
-  age: number;
-  premiumUser: boolean;
-};
+//function 関数名 (引数リスト):返り値の型{中身}
 
-const data: string = `
-Taro,26,1
-John Smith, 17, 0
-Mary Sue,14,1
-`;
-
-const users: User[] = []; //user情報を入れる空の配列
-const lines = data.split("\n"); //文字列を改行位置で分割
-
-for (const line of lines) {
-  //lines配列の要素が変数lineに順番に入り、その個数だけ繰り返し処理
-  if (line === "") {
-    continue;
+console.log(range(3, 20)); //関数の巻き上げ(hosting)…関数宣言よりも先に呼び出してもOK
+function range(min: number, max: number): number[] {
+  const result = [];
+  for (let i = min; i <= max; i++) {
+    result.push(i);
   }
-  const [name, ageString, premiumUserString] = line.split(","); //各要素を,で分割し順番に左辺の変数へ分割代入する。
-  const age = Number(ageString); //変数ageはNumber型なので変換して代入。
-  const premiumUser = premiumUserString === "1"; //「1」ならTRUEに代入するようにした
-
-  users.push({ name, age, premiumUser });
+  return result;
 }
-
-for (const user of users) {
-  if (user.premiumUser) {
-    console.log(`${user.name}(${user.age})はプレミアムユーザーです`);
-  } else {
-    console.log(`${user.name}(${user.age})はプレミアムユーザーではありません`);
-  }
-}
-console.log(users);
+console.log(range(3, 10));
