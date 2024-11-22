@@ -1,21 +1,11 @@
-//アロー関数式の省略形
-//(引数リスト):返り値の型=>式
+//メソッド記法による関数宣言
 
-type Human = {
-  height: number;
-  weight: number;
+const obj = {
+  //プロパティ名(引数リスト):返り値の型{中身}
+  double(num: number): number {
+    return num * 2;
+  },
+  double2: (num: number): number => num * 2,
 };
-
-//通常の書き方
-// const calcBMI = ({ height, weight }: Human): number => {
-//   return weight / height ** 2;
-// };
-
-//省略形
-const calcBMI = ({ height, weight }: Human) => weight / height ** 2;
-
-const Taro: Human = {
-  height: 1.68,
-  weight: 80,
-};
-console.log(calcBMI(Taro));
+console.log(obj.double(100));
+console.log(obj.double2(-50));
