@@ -8,18 +8,9 @@ const sum = (...args: number[]): number => {
   }
   return result;
 };
-console.log(sum(1, 2, 3, 4, 5, 6));
-console.log(sum(1, 2, 3));
+const nums = [1, 2, 3, 4, 5];
+console.log(sum(...nums, 6, 7, 8, 9, ...nums));
 
-const sum2 = (base: number, ...args: number[]): number => {
-  //rest引数（...引数）にも型注釈が必要で、配列型でないといけない。
-  let result = base * 1000;
-  for (const sum of args) {
-    result += sum;
-  }
-  console.log(`baseの中身は${base}、argsの中身は${args}`);
-
-  return result;
-};
-console.log(sum2()); //コンパイルエラー
-console.log(sum2(1, 2, 3, 4));
+const sum3 = (a: number, b: number, c: number) => a + b + c; //3つの引数の型を指定しているが、
+const nums2: [number, number, number] = [1, 2, 3]; //ここで引数の型指定の数で配列内の個数を指定すればOK
+console.log(sum3(...nums2));
