@@ -1,16 +1,28 @@
-//可変長引数の宣言 rest引数構文
-//...引数:型とすることで、呼び出し時の引数の数が何個でもよくなる。残りの全ての引数を使うという意味
+//オプショナルな引数…渡しても渡さなくてもいい引数
 
-const sum = (...args: number[]): number => {
-  let result = 0;
-  for (const sum of args) {
-    result += sum;
+//デフォルト値を指定しない場合↓------------------------------------------------------------------------------
+const toLowerOrUpper = (str: string, upper?: boolean): string => {
+  //upper?はオプショナルな引数(呼び出し時にあってもなくてもいい)
+  if (upper) {
+    //upperがTRUEかFALSEかで分岐
+    return str.toUpperCase(); //toUpperCase()は文字列型がもつメソッド(文字列を全て大文字にした文字列を返す)
+  } else {
+    return str.toLowerCase(); //toLowerCase()は文字列型がもつメソッド(文字列を全て小文字にした文字列を返す)
   }
-  return result;
 };
-const nums = [1, 2, 3, 4, 5];
-console.log(sum(...nums, 6, 7, 8, 9, ...nums));
+console.log(toLowerOrUpper("Hello")); //呼び出し時に第２引数のupperがないけどOK。hello
+console.log(toLowerOrUpper("Hello", false)); //hello
+console.log(toLowerOrUpper("Hello", true)); //HELLO
 
-const sum3 = (a: number, b: number, c: number) => a + b + c; //3つの引数の型を指定しているが、
-const nums2: [number, number, number] = [1, 2, 3]; //ここで引数の型指定の数で配列内の個数を指定すればOK
-console.log(sum3(...nums2));
+//デフォルト値を指定する場合↓--------------------------------------------------------------------------------
+const toLowerOrUpper1 = (str: string, upper: boolean = false): string => {
+  if (upper) {
+    return str.toUpperCase();
+  } else {
+    return str.toLowerCase();
+  }
+};
+
+console.log(toLowerOrUpper1("Hello")); //引数が渡されなかった場合に初期値が評価される。hello
+console.log(toLowerOrUpper1("Hello", false)); //hello
+console.log(toLowerOrUpper1("Hello", true)); //HELLO
