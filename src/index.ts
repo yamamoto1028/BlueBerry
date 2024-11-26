@@ -1,11 +1,14 @@
-//引数の数による部分型の関係
-//ある関数型Fの引数リストの末尾に新たな引数を追加して関数型Gを作った場合、FはGの部分型となる
+//ジェネリクス とは型引数受け取る関数を作る機能
+//ジェネリック関数 型引数を持つ関数
+//関数名<型引数リスト>
 
-type UnaryFunc = (arg: number) => number; //F
-type BinaryFunc = (left: number, right: number) => number; //G
-
-const double: UnaryFunc = (arg) => arg * 2;
-const add: BinaryFunc = (left, right) => left + right;
-
-const bin: BinaryFunc = double;
-console.log(bin(10, 100)); //100は渡すことはできるが無視される
+function repeat<T>(element: T, length: number): T[] {
+  const result: T[] = [];
+  for (let i = 0; i < length; i++) {
+    result.push(element);
+  }
+  return result;
+}
+console.log(repeat<string>("a", 5));
+console.log(repeat<number>(1234, 3));
+console.log(repeat<string>(0, 5)); //コンパイルエラー
