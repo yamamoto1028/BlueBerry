@@ -6,16 +6,14 @@ type HasNameAndAge = {
   age: number;
 };
 
-const fromAge = (age: number): HasNameAndAge => ({
-  name: "John Smith",
-  age,
-});
-const f: (age: number) => HasName = fromAge; //HasNameAndAge型のfromAgeをHasName型のfに代入できている（部分型：fromAgeはfの部分型）
-const obj: HasName = f(100);
-console.log(obj);
-
-//void型はどんな値を返す関数でも部分型として使える。
-const g = (name: string) => {
-  name;
+const showName = (obj: HasName) => {
+  console.log(obj.name);
 };
-const h: (name: string) => void = g;
+const g: (obj: HasNameAndAge) => void = showName;
+g({
+  name: "Taro",
+  age: 26,
+});
+
+//関数型の返り値の型は 共変 の位置にある、という
+//関数型の引数の型は 反変 の位置にあるという
