@@ -1,25 +1,34 @@
-//引数の型注釈が省略可能な場合
-//変数に型注釈がある場合
-type F = (arg: number) => string;
-const xRepeat: F = (num) => "x".repeat(num); //変数宣言時に型注釈がある場合
-console.log(xRepeat(3));
-
-//コールバック関数の場合、多くは引数の型を書かなくて良くなる
-const nums = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const arr2 = nums.filter((x) => x % 3 === 0); //(x)に型注釈が不要
-console.log(arr2);
-
-//文脈上の型がオブジェクト型を伝播してくる場合
-type Greetable = {
-  greet: (str: string) => string;
+//コールシグネチャによる関数型の表現
+//(引数リスト):返り値の型;
+type myFunc = {
+  isUsed?: boolean; //プロパティの定義
+  (arg: number): void; //コールシグネチャの定義
 };
-const obj: Greetable = {
-  greet: (str) => `Hello,${str}`,
+const double: myFunc = (arg: number) => {
+  console.log(arg + 2);
 };
-console.log(obj.greet("s"));
+double.isUsed = true; //doubleはisUsedプロパティを持つ
+console.log(double.isUsed);
+double(2); //関数としても呼び出せる
 
-//引数の型省略ができるかどうかは省略してみればコンパイルエラーで教えてくれる
-const f = (num) => num * 2;
-console.log(f(2));
+//普通の関数型もコールシグネチャを使って書ける
+type F = (arg: string) => number; //普通の関数型
+type G = { (arg: string): number }; //コールシグネチャ(普通の関数型でかけるならあんまりやらないけど)
 
-const arr3 = nums.filter((x) => x % 3 === 0); //(x)の()は省略できる(Prittierのせいで今はできないけど)
+//string型を引数で渡すとnumber型を返し、number型を引数で渡すとboolean型で返す→コールシグネチャの出番
+type SwapFunc = {
+  (arg: string): number;
+  (arg: number): boolean;
+};
+const H: SwapFunc = (arg: string | number): number | boolean => {
+  //function H(arg: string): number;
+  // function H(arg: number): boolean;
+  // function H(arg: string | number): number | boolean{ ←オーバーロードをシグネチャを明示的に記述するとHのエラーは解消できる。
+  if (typeof arg === "string") {
+    return 1;
+  } else {
+    return false;
+  }
+};
+console.log(H("5"));
+console.log(H(5));
