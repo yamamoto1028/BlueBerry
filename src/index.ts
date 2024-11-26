@@ -1,11 +1,15 @@
-//返り値の型推論は省略可能
-//省略した場合は型推論によって決められる
-const xRepeat = (num: number) => "x".repeat(num); //返り値が型推論によってstringと判断された
+//返り値の型注釈は省略すべきか
 
-//返り値を返さない関数も型注釈をつけられる→返り値はvoid型になる
-const g = (num: number) => {
-  for (let i = 0; i < num; i++) {
-    console.log("Hello, World!");
+const range = (min: number, max: number) => {
+  //型推論によって返り値はnumber[]型となる
+  const result = [];
+  for (let i = min; i <= max; i++) {
+    result.push(i);
   }
+  return result; //return文を書かなかった場合、返り値はないものとして判断されvoidとして扱われる
 };
-g(3);
+
+const arr = range(5, 10);
+for (const value of arr) {
+  console.log(value);
+}
