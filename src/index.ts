@@ -1,19 +1,11 @@
-type HasName = {
-  name: string;
-};
-type HasNameAndAge = {
-  name: string;
-  age: number;
-};
+//引数の数による部分型の関係
+//ある関数型Fの引数リストの末尾に新たな引数を追加して関数型Gを作った場合、FはGの部分型となる
 
-const showName = (obj: HasName) => {
-  console.log(obj.name);
-};
-const g: (obj: HasNameAndAge) => void = showName;
-g({
-  name: "Taro",
-  age: 26,
-});
+type UnaryFunc = (arg: number) => number; //F
+type BinaryFunc = (left: number, right: number) => number; //G
 
-//関数型の返り値の型は 共変 の位置にある、という
-//関数型の引数の型は 反変 の位置にあるという
+const double: UnaryFunc = (arg) => arg * 2;
+const add: BinaryFunc = (left, right) => left + right;
+
+const bin: BinaryFunc = double;
+console.log(bin(10, 100)); //100は渡すことはできるが無視される
