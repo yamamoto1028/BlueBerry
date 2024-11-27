@@ -1,37 +1,32 @@
-//変数スコープと関数
-//変数のスコープとは 変数の有効範囲 のこと
-const repeat = function <T>(element: T, length: number): T[] {
-  //引数も関数のスコープに属する
-  const result: T[] = []; //変数resultはrepeatのスコープに属する
-  for (let i = 0; i < length; i++) {
-    result.push(element);
+//ブロックスコープと関数スコープ
+//ブロックスコープとは ブロック{…}の範囲に対して発生する
+
+//年齢20歳以上なら5歳サバを読んで返す関数
+function sabayomi(age: number) {
+  if (age >= 18 && age < 20) {
+    //ブロックスコープ
+    const lie = age + 2;
+    return lie;
+  } else if (age >= 20) {
+    const lie = age - 5; //ブロックスコープことなるスコープなら同じ変数名を使える
+    return lie;
   }
-  const result = []; //スコープ内で複数回同じ変数を宣言することはできない
+  console.log(lie); //lieが存在しないコンパイルエラー
+  return age;
+}
+// console.log(sabayomi(19));
+
+//for文の()内の変数はそのfor文の中でのみ使える
+function sum(arr: number[]): number {
+  let result = 0;
+  for (let i = 0; i < arr.length; i++) {
+    result += arr[i];
+    console.log(i); //iは参照可能
+  }
+  console.log(result);
+  // console.log(i); //iは見つからない
 
   return result;
-};
-console.log(result); //repeat関数の外にはresultは存在しない
-
-//内側のスコープから外側のスコープにはアクセスできる--------------------------------------------------
-const repeatLength = 5;
-const repeat1 = function <T>(element: T): T[] {
-  const result: T[] = [];
-  for (let i = 0; i < repeatLength; i++) {
-    //関数の外のrepeatLengthを参照している
-    result.push(element);
-  }
-  return result;
-};
-console.log(repeat1("3"));
-//-------------------------------------------------------------------------------------------
-const repeatLength1 = 5; //モジュールスコープ
-const repeat2 = function <T>(element: T): T[] {
-  const repeatLength1 = 3; //関数スコープ…内側が優先して参照される
-  const result: T[] = [];
-  for (let i = 0; i < repeatLength1; i++) {
-    result.push(element);
-  }
-  return result;
-};
-console.log(repeat2("3"));
-console.log(repeatLength1); //関数の外側ならモジュールスコープが参照される
+}
+const sumArr: number[] = [1, 2, 3, 4, 5, 6];
+sum(sumArr);
