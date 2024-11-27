@@ -1,44 +1,24 @@
-//力試し_簡単な関数を書いてみよう
-//FizzBazz
-for (let i = 1; i <= 100; i++) {
-  if (i % 3 === 0 && i % 5 === 0) {
-    console.log("FizzBuzz");
-  } else if (i % 3 === 0) {
-    console.log("Fizz");
-  } else if (i % 5 === 0) {
-    console.log("Buzz");
-  } else {
-    console.log(i);
-  }
-}
-//for文の中の処理を関数に抜き出す--------------------------------------------------------
-function getFizzBuzzString(i: number): string {
-  if (i % 3 === 0 && i % 5 === 0) {
-    return "FizzBuzz";
-  } else if (i % 3 === 0) {
-    return "Fizz";
-  } else if (i % 5 === 0) {
-    return "Buzz";
-  } else {
-    return String(i);
-  }
-}
+//力試し_コールバック関数の練習------------------------------------------------------------------------------------------
+// function map(array: number[], callback: (value: number) => number): number[] {
+//   const result: number[] = [];
+//   for (const elm of array) {
+//     result.push(callback(elm));
+//   }
+//   return result;
+// }
+// const data = [1, 1, 2, 3, 5, 8, 13];
+// const result = map(data, (x) => x * 10);
+// console.log(result); //[10, 10, 20, 30, 50, 80, 130]
 
-for (let i = 1; i <= 100; i++) {
-  const message = getFizzBuzzString(i); //iの値がなんの倍数かによって返す文字列を変える
-  console.log(message);
-}
-
-//for-of文で繰り返し処理を書く----------------------------------------------------------
-function sequence(start: number, end: number): number[] {
-  let arr: number[] = []; //numberの配列型の空配列を用意。
-  for (let i = start; i <= end; i++) {
-    arr.push(i); //i~jまでの数値を配列に繰り返し追加。
+//map関数の引数や返り値をどの要素型でも受け取れるようにする------------------------------------------------------------------
+//ジェネリクスを使用→呼び出し時に与えた引数の型推論で型が決まる
+function map<T, U>(array: T[], callback: (value: T) => U): U[] {
+  const result: U[] = [];
+  for (const elm of array) {
+    result.push(callback(elm));
   }
-  return arr; //出来上がったarrを呼び出し元に返す
+  return result;
 }
-
-for (const i of sequence(1, 100)) {
-  const message = getFizzBuzzString(i);
-  console.log(message);
-}
+const data = [1, -3, -2, 8, 0, -1];
+const result = map(data, (x) => x >= 0);
+console.log(result);
