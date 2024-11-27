@@ -1,11 +1,22 @@
-//関数の型引数は省略できる
-//type文の型引数はできない
-function repeat<T>(element: T, length: number): T[] {
+//型引数を持つ関数型
+const repeat = function <T>(element: T, length: number): T[] {
   const result: T[] = [];
   for (let i = 0; i < length; i++) {
     result.push(element);
   }
   return result;
-}
-const result = repeat("a", 5); //関数呼び出し時に渡した引数の型によって型推論が行われる。
-const result2 = repeat(2, 5);
+};
+
+type Func = <T>(arg: T, num: number) => T[];
+
+const repeat1: Func = function (element, length) {
+  const result = [];
+  for (let i = 0; i < length; i++) {
+    result.push(element);
+  }
+  return result;
+};
+
+console.log(repeat1("3", 5));
+console.log(repeat1(3, 5));
+console.log(repeat("3", 5));
