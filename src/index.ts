@@ -1,20 +1,35 @@
-//クラスの宣言と使用
-//同じプロパティやメソッドを持ったオブジェクトをいくつも作成したい場合に使う。
-//クラスによって作成されたオブジェクトのことをインスタンスという。
+//プロパティを宣言する
+//プロパティ名:型=式(初期値);
+//
 
-//クラス宣言とnew構文
-//クラス宣言の構文
 class User {
+  //プロパティ名:型=式(初期値);
   name: string = "";
   age: number = 0;
 }
 
-//new構文→インスタンス化
 const taro = new User();
-console.log(taro.name);
-console.log(taro.age);
+console.log(taro.name); //""が表示
+console.log(taro.age); //0が表示
 
-taro.age = 26;
-console.log(taro.age);
+//オプショナルなプロパティの例--------------------------------------------------------
+class User1 {
+  name?: string; //初期値を省略できる
+  age: number = 0;
+}
+const jiro = new User1();
+console.log(jiro.name); //undefinedが出力
+jiro.name = "Jiro";
+console.log(jiro.name);
+//--------------------------------------------------------------------------------
 
-//クラス宣言よりも前にnew構文は使えない
+//読み取り専用プロパティの例----------------------------------------------------------
+class User2 {
+  readonly name: string = "Saburo";
+  age: number = 0;
+}
+const saburo = new User2();
+console.log(saburo.name);
+saburo.name = "Hanako"; //読み取り専用には代入できないためコンパイルエラー
+
+//--------------------------------------------------------------------------------
