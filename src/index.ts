@@ -1,23 +1,24 @@
-// コンストラクタ引数でのプロパティ宣言
+// クラス式でクラスを作成する
+//関数宣言と関数式の関係みたいなもん
+//const 変数名 = class {
+//   内容の記載方法は同じ
+// };
+const User = class {
+  name: string;
+  age: number;
 
-// class User {
-//   name: string;
-//   age: number;
-//   constructor(name: string, age: number) {
-//     this.name = name;
-//     this.age = age;
-//   }
-// }
-// 上記はアクセシビリティ修飾子を使うことで簡単に書ける
-class User {
-  constructor(public name: string, private age: number) {
-    // this.name = name; こいつらは引数の中で自動的にやっているから不要
-    // this.age = age;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
   }
   public isAdult(): boolean {
     return this.age >= 20;
   }
-}
+};
 
-const u = new User("Taro", 2);
-console.log(u.name, u.isAdult());
+//クラス式ではprivateとprotectedが使えないため、基本的にはクラス宣言を用いた方が良い→使えそうだけど？？
+
+const taro = new User("Taro", 26);
+console.log(taro.name); //Taro
+console.log(taro.age); //26
+console.log(taro.isAdult()); //true
