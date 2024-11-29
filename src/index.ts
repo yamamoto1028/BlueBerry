@@ -1,23 +1,23 @@
-// 型引数を持つクラス
+// クラスの宣言はインスタンスの型を作る
+// クラス宣言の重要な特徴の一つは、 クラスオブジェクトという値をつくるものであると同時に、インスタンスの型を宣言するものであるということ
 
-class User<T> {
-  name: string;
-  #age: number;
-  readonly data: T;
-
-  constructor(name: string, age: number, data: T) {
-    this.name = name;
-    this.#age = age;
-    this.data = data;
-  }
-  public isAdult(): boolean {
-    return this.#age >= 20;
+class User {
+  name: string = "";
+  age: number = 0;
+  isAdult(): boolean {
+    return this.age >= 20;
   }
 }
+const taro: User = new User(); //OK
+const john: User = {
+  name: "John",
+  age: 15,
+  isAdult: () => {
+    return john.age >= 20;
+  },
+}; //OK
+console.log(john.isAdult());
 
-// new クラス名 <型引数リスト>(引数リスト)
-const taro = new User<string>("Taro", 26, "追加データ"); //taroはUser<string>型
-const data = taro.data; //dataはstring型
-
-const john = new User("John", 15, { num: 123 }); //johnはUser<{num:number}>型
-const data2 = john.data; //data2は{ num: 123 }型
+// クラス宣言は型宣言と変数宣言の両方を同時に兼ねられるもの。
+// これはクラス宣言特有の挙動であり、クラス式には上記の効果はない。
+// 特に事情がなければ基本的にはクラス宣言を使用するのが好ましい。
