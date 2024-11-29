@@ -1,24 +1,22 @@
-// クラス式でクラスを作成する
-//関数宣言と関数式の関係みたいなもん
-//const 変数名 = class {
-//   内容の記載方法は同じ
-// };
+// もう１つのプライベートプロパティ
+// #プロパティ名 という記載でprivateプロパティと同じ振る舞いをする
+
 const User = class {
   name: string;
-  age: number;
+  #age: number;
 
   constructor(name: string, age: number) {
     this.name = name;
-    this.age = age;
+    this.#age = age;
   }
   public isAdult(): boolean {
-    return this.age >= 20;
+    return this.#age >= 20;
   }
 };
 
-//クラス式ではprivateとprotectedが使えないため、基本的にはクラス宣言を用いた方が良い→使えそうだけど？？
-
 const taro = new User("Taro", 26);
 console.log(taro.name); //Taro
-console.log(taro.age); //26
 console.log(taro.isAdult()); //true
+console.log(taro.#age); //プライベート識別子のため、コンパイルエラー
+
+//プライベート識別子はとりあえず # 使っとけばまちがいねえ！不都合あったらprivateを検討
