@@ -1,5 +1,6 @@
-// (2)親の機能を上書き(オーバーライド)する
-
+// override修飾子とその威力
+// override修飾子はあくまでもオーバーライドを明示・宣言するためのものであり、間違っていたらコンパイルエラーを出してもらうためのもの
+// noImplicitOverrideコンパイラオプションを有効化するとオーバーライドするものにはoverride修飾子が必須になる(tsconfig.jsonで設定)
 class User {
   name: string;
   #age: number;
@@ -13,33 +14,9 @@ class User {
 }
 
 class PremiumUser extends User {
-  rank: number = 1;
-  //ここでisAdultを再宣言
-  public isAdult(): boolean {
+  override rank: number = 1; //オーバーライドじゃないものにつけるとコンパイルエラー
+  //オーバーライド↓
+  public override isAdult(): boolean {
     return true;
   }
 }
-const john = new User("John Smith", 17);
-const jiro = new PremiumUser("Jiro", 15);
-console.log(john.isAdult()); //false
-console.log(jiro.isAdult()); //true
-
-class PremiumUserNG extends User {
-  rank: number = 1;
-  //ここでisAdultの返り値をstringにしちゃだめ。Userの部分型ということは守らなければいけない
-  public isAdult(): string {
-    return "おとなです";
-  }
-}
-
-// コンストラクタもオーバーライドできる
-class PremiumUser1 extends User {
-  rank: number;
-  constructor(name: string, age: number, rank: number) {
-    super(name, age); //super呼び出しを含める必要がある（親クラスのコンストラクタを呼び出す）
-    this.rank = rank;
-  }
-}
-const taro = new PremiumUser1("Taro", 26, 3);
-console.log(taro.name); //Taro
-console.log(taro.rank); //3
