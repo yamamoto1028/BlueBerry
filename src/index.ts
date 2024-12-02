@@ -1,25 +1,22 @@
-// 例外処理（ランタイムエラー）_throw文とErrorオブジェクト
-// エラーを表すオブジェクトを用意。(Errorのインスタンス)new Error
-//throw文を使ってエラーを発生させることを「エラーを投げる」という
-
+// 例外をキャッチするtry-catch文
+// 例外処理（ランタイムエラー）が発生してもプログラムが強制終了しないようにする機構
+// try {
+//   tryブロック（複数書ける）
+// }catch(err){
+//   catchブロック（複数書ける）
+// }
+// try文で例外が発生した場合にcatch文に移行する
 const throwError = () => {
   const error = new Error("エラーが発生しました！");
   throw error;
 };
 
-console.log("エラーを発生させます");
-throwError(); //ランタイムエラー
-console.log("エラーを発生させました");
-
-function getAverages(nums: number[]) {
-  let sum: number = 0;
-  if (nums.length === 0) {
-    throw new Error("配列が空です");
-  }
-  for (let i = 0; i < nums.length; i++) {
-    sum += nums[i];
-  }
-  return sum / nums.length;
+try {
+  console.log("エラーを発生させます");
+  throwError(); //try文はここで終わり、catch文へ移行する
+  console.log("エラーを発生させました"); //実行されない
+} catch (err) {
+  console.log("エラーをキャッチしました");
+  console.log(err); //Errorオブジェクトの表示
 }
-console.log(getAverages([2, 4, 6, 8, 10])); //6
-console.log(getAverages([])); //渡す配列が空だったらランタイムエラー
+console.log("おわり"); //例外が発生しても処理は止まらずここまで実行される
