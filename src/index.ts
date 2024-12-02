@@ -1,52 +1,36 @@
-// instanceof演算子と型の絞り込み
-// 与えられたオブジェクトがあるクラスのインスタンスかどうかを判断する演算子
+// クラスの継承_(1)子は親の機能を受け継ぐ
+// 親クラスを継承して作られた子クラスは親クラスのインスタンスの代わりに使用できる
+// 継承を使うとプログラムの設計が複雑になる傾向がある
+// TypeScriptはクラスがなくてもなんとかなる言語だし、あえてクラスを、しかも継承という複雑なものまで使うかは慎重な判断が必要！
+
+// class クラス名 extends 親クラス {…}
+// class extends 親クラス
+
 class User {
-  name: string = "";
-  age: number = 0;
-}
-const taro = new User();
-console.log(taro instanceof User); //taroはUserのインスタンスなのでtrue
-console.log({} instanceof User); //{}はUserのインスタンスではないのでfalse
-
-const john: User = {
-  name: "John Smith",
-  age: 15,
-};
-console.log(john instanceof User); //johnはUserのインスタンスではないのでfalse
-// ------------------------------------------------------------------------------------------------------------
-// この演算子の特徴は型の絞り込みをサポートしている点------------------------------------------------------------------
-type HasAge = {
-  age: number;
-};
-class User1 {
   name: string;
-  age: number;
-
+  #age: number;
   constructor(name: string, age: number) {
     this.name = name;
-    this.age = age;
+    this.#age = age;
+  }
+  public isAdult(): boolean {
+    return this.#age >= 20;
   }
 }
 
-function getPrice(customer: HasAge) {
-  if (customer instanceof User1) {
-    if (customer.name === "Jiro") {
-      return 0;
-    }
-  }
-  return customer.age < 18 ? 1000 : 1800;
+class PremiumUser extends User {
+  rank: number = 1;
 }
-const customer1: HasAge = { age: 15 };
-const customer2: HasAge = { age: 40 };
-const jiro = new User1("Jiro", 26);
+const taro = new PremiumUser("Taro", 26);
+console.log(taro.rank); //1
+console.log(taro.name); //Taro
+console.log(taro.isAdult()); //true
+console.log(taro);
 
-console.log(getPrice(customer1)); //1000
-console.log(getPrice(customer2)); //1800
-console.log(getPrice(jiro)); //0
-
-// この書き方も可
-// if(customer instanceof User1 && customer.name === "Jiro"){
-//  return 0
-// }
-
-// TypeScriptではクラスを使わずにデータを表現することが多くあるので、instanceofのようなクラスに依存したロジックはあまり好ましくない
+//PremiumUser型はUser型の部分型なのでUser型が必要なところにも使える
+function getMassage(u: User) {
+  return `こんにちは${u.name}さん`;
+}
+const john = new User("John Smith", 15);
+console.log(getMassage(taro)); //PremiumUser型
+console.log(getMassage(john)); //User型
