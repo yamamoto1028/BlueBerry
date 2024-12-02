@@ -1,8 +1,6 @@
-// this_関数の中のthisは呼び出し方によって決まる
-// thisは基本的には自分自身を表すオブジェクトであり、おもにメソッドの中で使われる
-// thisが具体的に何を指すのかは関数の呼び出し方によって決まる
-// taro.isAdult()のように 「オブジェクト.メソッド名」 の形で参照する
-// 「オブジェクト」が「this」に相当する。
+// アロー関数における this
+// アロー関数はthisを外側の関数から受け継ぐ
+// アロー関数は自分自身のthisを持たない
 
 class User {
   name: string;
@@ -11,26 +9,19 @@ class User {
     this.name = name;
     this.#age = age;
   }
-  isAdult(): boolean {
+  public isAdult() {
     return this.#age >= 20;
   }
+
+  //User型の配列を受け取り、その中から自身より年上のUserインスタンスのみを抽出したUser型の配列を返すメソッド
+  public filterOlder(users: readonly User[]): User[] {
+    return users.filter((u) => u.#age > this.#age);
+  }
 }
+
 const taro = new User("Taro", 26);
 const john = new User("John Smith", 15);
-console.log(taro.isAdult === john.isAdult); //true
+const bob = new User("Bob Marly", 40);
 
-// thisを使う関数をメソッド呼び出しの記法を用いずに呼び出した場合が問題
-const isAdult = taro.isAdult;
-console.log(isAdult()); //ランタイムエラー
-
-// クラスだけじゃなくて普通のオブジェクトでもthis は使えるよ-------------------------------------------
-const user = {
-  name: "Taro",
-  age: 26,
-  isAdult() {
-    return this.age >= 20;
-  },
-};
-console.log(user.isAdult()); //true
-user.age = 15;
-console.log(user.isAdult()); //false
+const older = taro.filterOlder([john, bob]);
+console.log(older); //[ User { name: 'Bob Marly' } ]
