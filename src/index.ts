@@ -1,23 +1,18 @@
-// クラスの宣言はインスタンスの型を作る
-// クラス宣言の重要な特徴の一つは、 クラスオブジェクトという値をつくるものであると同時に、インスタンスの型を宣言するものであるということ
-
+// newシグネチャによるインスタンス化可能性の表現
+// クラスオブジェクトをnewで呼び出してインスタンスを作る型の記法
+// new(引数リスト)=>インスタンスの型
 class User {
   name: string = "";
   age: number = 0;
-  isAdult(): boolean {
-    return this.age >= 20;
-  }
 }
-const taro: User = new User(); //OK
-const john: User = {
-  name: "John",
-  age: 15,
-  isAdult: () => {
-    return john.age >= 20;
-  },
-}; //OK
-console.log(john.isAdult());
+type MyUserConstructor = new () => User;
 
-// クラス宣言は型宣言と変数宣言の両方を同時に兼ねられるもの。
-// これはクラス宣言特有の挙動であり、クラス式には上記の効果はない。
-// 特に事情がなければ基本的にはクラス宣言を使用するのが好ましい。
+const MyUser: MyUserConstructor = User; //UserはMyUserConstructor型を持つ
+const u = new MyUser(); //MyUserはnewで使用可能
+console.log(u.name, u.age); //uはUser型をもつ
+
+//newシグネチャというコールシグネチャの亜種
+type MyUserConstructor1 = {
+  new (): User;
+  // newで呼び出せると同時に、それ自身もプロパティやメソッドを持つ
+};
