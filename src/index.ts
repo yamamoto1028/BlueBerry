@@ -1,53 +1,41 @@
-// finallyで脱出に割り込む
-// エラーが発生してもしなくても実行される
+// 力試し_クラスに書き換えてみる
+// ただのオブジェクトと関数で書かれたコードをクラスを使って書き直してみる
+type User = {
+  name: string;
+  age: number;
+};
 
-try {
-  console.log("tryブロック");
-} catch {
-  console.log("catchブロック");
-} finally {
-  console.log("finallyブロック");
-}
-// try-finallyの例
-try {
-  console.log("tryブロック");
-} finally {
-  console.log("finallyブロック");
-}
-
-try {
-  console.log("tryブロック1");
-  throwError();
-  console.log("tryブロック2");
-} catch (err) {
-  console.log("catchブロック");
-} finally {
-  console.log("finallyブロック");
+function createUser(name: string, age: number): User {
+  if (name === "") {
+    throw new Error("名前は空にできません!");
+  }
+  return {
+    name,
+    age,
+  };
 }
 
-try {
-  console.log("エラーを発生させます");
-  throwError();
-  console.log("エラーを発生させました");
-} finally {
-  console.log("finallyブロック");
-}
-console.log("try文の後ろ");
-
-function throwError() {
-  throw new Error("エラー発生");
+function getMessage(user: User, message: string): string {
+  return `${user.name}(${user.age})「${message}」`;
 }
 
-// finallyはエラー以外の脱出にも対応している。（例）return文
-console.log(sum(100));
-function sum(max: number): number {
-  try {
-    let result = 0;
-    for (let i = 1; i <= max; i++) {
-      result += i;
+const taro = createUser("Taro", 26);
+console.log(getMessage(taro, "こんにちは"));
+
+// ここから書いてみる---------------------------------------------------------------------------------------
+class User1 {
+  readonly #name: string;
+  readonly #age: number;
+  constructor(name: string, age: number) {
+    if (name === "") {
+      throw new Error("名前は空にできません!");
     }
-    return result;
-  } finally {
-    console.log("sumから脱出しました!");
+    this.#name = name;
+    this.#age = age;
+  }
+  getMessage1(message: string): string {
+    return `${this.#name}(${this.#age})「${message}」`;
   }
 }
+const jiro = new User1("Jiro", 26);
+console.log(jiro.getMessage1("おはようございます"));
