@@ -1,53 +1,53 @@
-// 例外処理と大域脱出
-// try-catch文は強力な言語機能だが取り扱いには注意
-function somefunc() {
-  const error = new Error("エラーです！");
-  throw error;
+// finallyで脱出に割り込む
+// エラーが発生してもしなくても実行される
+
+try {
+  console.log("tryブロック");
+} catch {
+  console.log("catchブロック");
+} finally {
+  console.log("finallyブロック");
+}
+// try-finallyの例
+try {
+  console.log("tryブロック");
+} finally {
+  console.log("finallyブロック");
 }
 
 try {
-  somefunc();
-} catch (err) {
-  //何も書かないなにもしない
-}
-// キャッチされたエラーの中身を見なかったり、それどころかエラーの処理を何もしないで次に進んだりするのは悪い例外処理の典型。
-
-// 失敗を表すthrow以外の選択肢としては失敗を表す値を返すというものがある
-// 例)エラーを投げる代わりにundefinedを返すようにできる
-
-function getAverage(nums: number[]) {
-  if (nums.length === 0) {
-    return undefined;
-  }
-  let sum: number = 0;
-  for (let i = 0; i < nums.length; i++) {
-    sum += nums[i];
-    console.log(sum);
-  }
-  return sum / nums.length;
-}
-
-const result = getAverage([]);
-console.log(result);
-
-try {
+  console.log("tryブロック1");
   throwError();
-  //tryブロックから脱出するのでここは表示されない
-  console.log("ここは表示されない");
+  console.log("tryブロック2");
 } catch (err) {
-  console.log(err);
-}
-function throwError() {
-  const error = new Error("エラーが発生");
-  throw error;
-  // 関数から脱出するのでここは表示されない
-  console.log("ここも表示されない");
+  console.log("catchブロック");
+} finally {
+  console.log("finallyブロック");
 }
 
-// ランタイムエラーは明示的に書いたthrow文だけでなく、それ以外の原因でも発生する可能性がある。
 try {
-  const bigInt = BigInt("foobar"); //ここでエラー発生
-  console.log(bigInt); //ここは実行されない
-} catch (err1) {
-  console.log(err1);
+  console.log("エラーを発生させます");
+  throwError();
+  console.log("エラーを発生させました");
+} finally {
+  console.log("finallyブロック");
+}
+console.log("try文の後ろ");
+
+function throwError() {
+  throw new Error("エラー発生");
+}
+
+// finallyはエラー以外の脱出にも対応している。（例）return文
+console.log(sum(100));
+function sum(max: number): number {
+  try {
+    let result = 0;
+    for (let i = 1; i <= max; i++) {
+      result += i;
+    }
+    return result;
+  } finally {
+    console.log("sumから脱出しました!");
+  }
 }
